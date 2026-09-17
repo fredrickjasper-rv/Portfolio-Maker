@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Portfolio Maker</h1>
+        <p>Create Your Portfolio Easily</p>
+    </header>
+
+    <main>
+
+        <!-- Form Section -->
+        <section class="form-section">
+
+            <h2>Enter Your Details</h2>
+
+            <input type="text" id="name" placeholder="Your Name">
+
+            <input type="text" id="role" placeholder="Your Role">
+
+            <textarea id="about" placeholder="About You"></textarea>
+
+            <input type="text" id="email" placeholder="Email">
+
+            <input type="text" id="phone" placeholder="Phone">
+
+            <input type="text" id="skills" placeholder="Skills (HTML, CSS, JavaScript)">
+
+            <textarea id="education" placeholder="Education"></textarea>
+
+            <textarea id="projects" placeholder="Projects"></textarea>
+
+            <button onclick="generatePortfolio()">
+                Generate Portfolio
+            </button>
+
+        </section>
+
+
+        <!-- Portfolio Preview -->
+        <section class="portfolio" id="portfolio">
+
+            <div class="hero">
+                <h1 id="displayName">Your Name</h1>
+                <h3 id="displayRole">Your Role</h3>
+            </div>
+
+            <div class="content">
+
+                <h2>About Me</h2>
+                <p id="displayAbout">
+                    Your introduction will appear here.
+                </p>
+
+                <h2>Skills</h2>
+                <div id="displaySkills" class="skills">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                </div>
+
+                <h2>Education</h2>
+                <p id="displayEducation">
+                    Your education details will appear here.
+                </p>
+
+                <h2>Projects</h2>
+                <p id="displayProjects">
+                    Your projects will appear here.
+                </p>
+
+                <h2>Contact</h2>
+                <p>Email: <span id="displayEmail"></span></p>
+                <p>Phone: <span id="displayPhone"></span></p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Portfolio Maker</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

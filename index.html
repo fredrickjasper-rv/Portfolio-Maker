@@ -1,96 +1,562 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Portfolio Maker</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 </head>
 
 <body>
 
-    <header>
-        <h1>Portfolio Maker</h1>
-        <p>Create Your Portfolio Easily</p>
-    </header>
+<!-- ================= NAVBAR ================= -->
 
-    <main>
+<nav class="navbar">
 
-        <!-- Form Section -->
-        <section class="form-section">
+    <div class="logo">
+        <span>◆</span> Portfolio Maker
+    </div>
 
-            <h2>Enter Your Details</h2>
+    <div class="nav-actions">
 
-            <input type="text" id="name" placeholder="Your Name">
+        <button onclick="toggleTheme()" class="icon-btn">
+            🌙
+        </button>
 
-            <input type="text" id="role" placeholder="Your Role">
+        <button onclick="savePortfolio()" class="nav-btn">
+            💾 Save
+        </button>
 
-            <textarea id="about" placeholder="About You"></textarea>
+        <button onclick="downloadHTML()" class="nav-btn primary">
+            ↓ Export
+        </button>
 
-            <input type="text" id="email" placeholder="Email">
+    </div>
 
-            <input type="text" id="phone" placeholder="Phone">
+</nav>
 
-            <input type="text" id="skills" placeholder="Skills (HTML, CSS, JavaScript)">
 
-            <textarea id="education" placeholder="Education"></textarea>
+<!-- ================= MAIN ================= -->
 
-            <textarea id="projects" placeholder="Projects"></textarea>
+<div class="app-container">
 
-            <button onclick="generatePortfolio()">
-                Generate Portfolio
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-title">
+            <h2>Build Portfolio</h2>
+            <p>Fill your details</p>
+        </div>
+
+
+        <!-- PERSONAL -->
+
+        <div class="form-group">
+
+            <label>Personal Information</label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Full Name"
+                oninput="updatePortfolio()"
+            >
+
+            <input
+                type="text"
+                id="role"
+                placeholder="Professional Role"
+                oninput="updatePortfolio()"
+            >
+
+            <textarea
+                id="about"
+                placeholder="Tell something about yourself..."
+                oninput="updatePortfolio()"
+            ></textarea>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="form-group">
+
+            <label>Profile Photo</label>
+
+            <input
+                type="file"
+                id="profileImage"
+                accept="image/*"
+                onchange="uploadImage(event)"
+            >
+
+        </div>
+
+
+        <!-- CONTACT -->
+
+        <div class="form-group">
+
+            <label>Contact</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                oninput="updatePortfolio()"
+            >
+
+            <input
+                type="text"
+                id="phone"
+                placeholder="Phone"
+                oninput="updatePortfolio()"
+            >
+
+            <input
+                type="text"
+                id="location"
+                placeholder="Location"
+                oninput="updatePortfolio()"
+            >
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div class="form-group">
+
+            <label>Skills</label>
+
+            <input
+                type="text"
+                id="skillInput"
+                placeholder="Example: HTML"
+            >
+
+            <input
+                type="range"
+                id="skillLevel"
+                min="10"
+                max="100"
+                value="80"
+            >
+
+            <button
+                class="add-btn"
+                onclick="addSkill()"
+            >
+                + Add Skill
             </button>
 
-        </section>
+            <div id="skillList"></div>
+
+        </div>
 
 
-        <!-- Portfolio Preview -->
-        <section class="portfolio" id="portfolio">
+        <!-- EDUCATION -->
 
-            <div class="hero">
-                <h1 id="displayName">Your Name</h1>
-                <h3 id="displayRole">Your Role</h3>
-            </div>
+        <div class="form-group">
 
-            <div class="content">
+            <label>Education</label>
 
-                <h2>About Me</h2>
-                <p id="displayAbout">
-                    Your introduction will appear here.
-                </p>
+            <input
+                type="text"
+                id="degree"
+                placeholder="Degree"
+                oninput="updatePortfolio()"
+            >
 
-                <h2>Skills</h2>
-                <div id="displaySkills" class="skills">
-                    <span>HTML</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
+            <input
+                type="text"
+                id="college"
+                placeholder="College / University"
+                oninput="updatePortfolio()"
+            >
+
+            <input
+                type="text"
+                id="year"
+                placeholder="Year"
+                oninput="updatePortfolio()"
+            >
+
+        </div>
+
+
+        <!-- PROJECT -->
+
+        <div class="form-group">
+
+            <label>Project</label>
+
+            <input
+                type="text"
+                id="projectTitle"
+                placeholder="Project Name"
+            >
+
+            <textarea
+                id="projectDescription"
+                placeholder="Project Description"
+            ></textarea>
+
+            <input
+                type="text"
+                id="projectLink"
+                placeholder="Project URL"
+            >
+
+            <button
+                class="add-btn"
+                onclick="addProject()"
+            >
+                + Add Project
+            </button>
+
+        </div>
+
+
+        <!-- CERTIFICATION -->
+
+        <div class="form-group">
+
+            <label>Certification</label>
+
+            <input
+                type="text"
+                id="certificate"
+                placeholder="Certificate Name"
+            >
+
+            <input
+                type="text"
+                id="certificateIssuer"
+                placeholder="Issued By"
+            >
+
+            <button
+                class="add-btn"
+                onclick="addCertificate()"
+            >
+                + Add Certificate
+            </button>
+
+        </div>
+
+
+        <!-- SOCIAL -->
+
+        <div class="form-group">
+
+            <label>Social Links</label>
+
+            <input
+                type="text"
+                id="github"
+                placeholder="GitHub URL"
+                oninput="updatePortfolio()"
+            >
+
+            <input
+                type="text"
+                id="linkedin"
+                placeholder="LinkedIn URL"
+                oninput="updatePortfolio()"
+            >
+
+            <input
+                type="text"
+                id="instagram"
+                placeholder="Instagram URL"
+                oninput="updatePortfolio()"
+            >
+
+        </div>
+
+
+        <!-- TEMPLATE -->
+
+        <div class="form-group">
+
+            <label>Portfolio Theme</label>
+
+            <select id="theme" onchange="changeTheme()">
+
+                <option value="blue">
+                    Ocean Blue
+                </option>
+
+                <option value="purple">
+                    Modern Purple
+                </option>
+
+                <option value="green">
+                    Fresh Green
+                </option>
+
+                <option value="dark">
+                    Dark Pro
+                </option>
+
+            </select>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= PREVIEW ================= -->
+
+    <main class="preview-area">
+
+        <div class="preview-toolbar">
+
+            <h3>Live Preview</h3>
+
+            <button onclick="fullscreenPreview()">
+                ⛶ Fullscreen
+            </button>
+
+        </div>
+
+
+        <div
+            class="portfolio-preview"
+            id="portfolioPreview"
+        >
+
+            <!-- HERO -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+                    <div>
+
+                        <p class="hello">
+                            HELLO, I'M
+                        </p>
+
+                        <h1 id="displayName">
+                            Your Name
+                        </h1>
+
+                        <h2 id="displayRole">
+                            Your Professional Role
+                        </h2>
+
+                        <p id="displayAbout">
+                            Write something about yourself
+                            to create your professional portfolio.
+                        </p>
+
+                        <div class="hero-buttons">
+
+                            <a
+                                id="githubLink"
+                                href="#"
+                                target="_blank"
+                            >
+                                GitHub
+                            </a>
+
+                            <a
+                                id="linkedinLink"
+                                href="#"
+                                target="_blank"
+                            >
+                                LinkedIn
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <img
+                        id="displayImage"
+                        class="profile-image"
+                        src="https://via.placeholder.com/180"
+                        alt="Profile"
+                    >
+
                 </div>
 
-                <h2>Education</h2>
-                <p id="displayEducation">
-                    Your education details will appear here.
+            </section>
+
+
+            <!-- ABOUT -->
+
+            <section class="portfolio-section">
+
+                <h2>About Me</h2>
+
+                <p id="aboutDisplay">
+                    Your professional introduction appears here.
                 </p>
+
+            </section>
+
+
+            <!-- SKILLS -->
+
+            <section class="portfolio-section">
+
+                <h2>Skills</h2>
+
+                <div
+                    class="skills-container"
+                    id="displaySkills"
+                >
+
+                    <p class="empty">
+                        Add your skills
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- EDUCATION -->
+
+            <section class="portfolio-section">
+
+                <h2>Education</h2>
+
+                <div class="education-card">
+
+                    <h3 id="displayDegree">
+                        Your Degree
+                    </h3>
+
+                    <p id="displayCollege">
+                        Your College
+                    </p>
+
+                    <span id="displayYear">
+                        Year
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- PROJECTS -->
+
+            <section class="portfolio-section">
 
                 <h2>Projects</h2>
-                <p id="displayProjects">
-                    Your projects will appear here.
+
+                <div
+                    id="displayProjects"
+                    class="project-grid"
+                >
+
+                    <p class="empty">
+                        Add projects
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- CERTIFICATES -->
+
+            <section class="portfolio-section">
+
+                <h2>Certifications</h2>
+
+                <div
+                    id="displayCertificates"
+                    class="certificate-grid"
+                >
+
+                    <p class="empty">
+                        Add certifications
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- CONTACT -->
+
+            <section class="contact-section">
+
+                <h2>Let's Connect</h2>
+
+                <p>
+                    📧
+                    <span id="displayEmail">
+                        email@example.com
+                    </span>
                 </p>
 
-                <h2>Contact</h2>
-                <p>Email: <span id="displayEmail"></span></p>
-                <p>Phone: <span id="displayPhone"></span></p>
+                <p>
+                    📱
+                    <span id="displayPhone">
+                        +91 XXXXX XXXXX
+                    </span>
+                </p>
 
-            </div>
+                <p>
+                    📍
+                    <span id="displayLocation">
+                        Your Location
+                    </span>
+                </p>
 
-        </section>
+                <div class="socials">
+
+                    <a
+                        id="instagramLink"
+                        href="#"
+                        target="_blank"
+                    >
+                        Instagram
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <footer>
+
+                <p>
+                    Created using Portfolio Maker
+                </p>
+
+            </footer>
+
+        </div>
 
     </main>
 
-    <footer>
-        <p>© 2026 Portfolio Maker</p>
-    </footer>
+</div>
 
-    <script src="script.js"></script>
+
+<script src="script.js"></script>
 
 </body>
 </html>
+```
